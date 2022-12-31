@@ -3,12 +3,27 @@ Description: >-
   lambda-cicd-hands-on
 Transform:
   - AWS::Serverless-2016-10-31
+Parameters: # 追加部分
+  Env: # prd: 本番、dev: 開発
+    Type: String
+    AllowedValues:
+      - prd
+      - dev
+      - manual
+    Default: manual
+
 Resources:
   helloLambdaFunction:
     Type: AWS::Serverless::Function
     Properties:
       Handler: hello-lambda.helloLambdaHandler
       AutoPublishAlias: SV
+      FunctionName:  # 追加部分
+        !Join
+        - ''
+        - - 'hello-lambda'
+          - '-'
+          - !Ref Env
       Runtime: nodejs16.x
       Architectures:
         - x86_64
@@ -20,9 +35,6 @@ Resources:
       FunctionUrlConfig:
         AuthType: NONE
 Outputs:
-  HelloLambdaFunction:
-    Description: "Hello Lambda Function ARN"
-    Value: !GetAtt helloLambdaFunction.Arn
   HelloLambdaFunctionUrl:
     Description: "Function URLs endpoint"
     Value: !GetAtt helloLambdaFunctionUrl.FunctionUrl
