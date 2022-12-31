@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: >-
+  lambda-cicd-hands-on
+Transform:
+  - AWS::Serverless-2016-10-31
+Resources:
+  helloLambdaFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: hello-lambda.helloLambdaHandler
+      AutoPublishAlias: SV
+      Runtime: nodejs16.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 100
+      Description: A Lambda function that returns a static string.
+      Policies:
+        - AWSLambdaBasicExecutionRole
+      FunctionUrlConfig:
+        AuthType: NONE
+Outputs:
+  HelloLambdaFunction:
+    Description: "Hello Lambda Function ARN"
+    Value: !GetAtt helloLambdaFunction.Arn
+  HelloLambdaFunctionUrl:
+    Description: "Function URLs endpoint"
+    Value: !GetAtt helloLambdaFunctionUrl.FunctionUrl
