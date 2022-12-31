@@ -1,5 +1,5 @@
 exports.helloLambdaHandler = async () => {
-    const message = 'Hello, Lambda!';
+    const message = 'Hello, Lambda! test!';
 
     console.info(`${message}`);
 
