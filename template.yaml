@@ -10,6 +10,8 @@ Parameters: # 追加部分
       - prd
       - dev
       - manual
+      - prd-cdk
+      - dev-cdk
     Default: manual
 
 Resources:
